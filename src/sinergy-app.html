@@ -1,0 +1,93 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
+<link rel="import" href="../bower_components/app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
+<link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="./stores/redux-mixin.html">
+
+<dom-module id="sinergy-app">
+  <template>
+    <style>
+      app-header {
+        background-color: #00897B;
+        color: #fff;
+      }
+      paper-icon-button {
+        --paper-icon-button-ink-color: white;
+      }
+      app-drawer-layout:not([narrow]) [drawer-toggle] {
+        display: none;
+      }
+    </style>
+    <app-drawer-layout>
+      <app-drawer slot="drawer">
+        <app-toolbar>Welcome</app-toolbar>
+        <paper-listbox selected="0">
+          <paper-item>Item 1</paper-item>
+          <paper-item>Item 2</paper-item>
+          <paper-item disabled>Item 3</paper-item>
+        </paper-listbox>
+      </app-drawer>
+      <app-header-layout>
+        <app-header slot="header" reveals effects="waterfall">
+          <app-toolbar>
+            <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
+            <paper-icon-item>
+              <iron-icon src="[[user.avatar]]" slot="item-icon" ></iron-icon>
+              [[user.first_name]] [[user.last_name]]
+            </paper-icon-item>
+          </app-toolbar>
+        </app-header>
+      </app-header-layout>
+    </app-drawer-layout>
+  </template>
+
+  <script>
+    class SinergyApp extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'sinergy-app' }
+      static get observers() {}
+      static get properties() {
+        return {
+          user: {
+            type: String,
+            statePath(state) {
+              return state.user
+            },
+          }
+        }
+      }
+      static get actions() {
+        return {
+          updateMessage(user) {
+            return {
+              type: 'UPDATE_MESSAGE',
+              user,
+            }
+          }
+        }
+      }
+      connectedCallback() {
+        super.connectedCallback()
+        const fetchAsync = async (url) => await (await fetch(url, {})).json()
+        let random = Math.round(Math.random() * (10 - 1) + 1);
+        this.dispatch( dispatch => {
+          const onResponse = (res) => {
+            dispatch('updateMessage', res.data)
+          }
+          fetchAsync(`https://reqres.in/api/users/${random}`)
+            .then(onResponse)
+        })
+      }
+      ready() {
+        super.ready();
+      }
+    }
+    customElements.define(SinergyApp.is, SinergyApp);
+  </script>
+</dom-module>

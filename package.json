@@ -1,0 +1,32 @@
+{
+  "name": "@sinergy/polytron",
+  "productName": "Sinergy",
+  "author": "|{ustomM@de",
+  "description": "Desktop Sinergy application",
+  "private": true,
+  "version": "0.1.0",
+  "main": "electron/app.js",
+  "scripts": {
+    "postinstall": "bower install -s",
+    "start": "NODE_ENV=development electron .",
+    "build": "npm run clean && npm run build:icons && npm run build:mac && npm run pack:dmg",
+    "build:icons": "electron-icon-maker --input=./assets/logo.png --output=./assets/icons",
+    "build:mac": "electron-packager . --overwrite --asar --platform=darwin --arch=x64 --icon=assets/icons/mac/icon.icns --prune=true --out=dist",
+    "pack:dmg": "electron-installer-dmg dist/Sinergy-darwin-x64/Sinergy.app Sinergy --out=dist",
+    "clean": "rm -rf dist build",
+    "clean:all": "rm -rf dist build bower_components node_modules"
+  },
+  "devDependencies": {
+    "bower": "^1.8.2",
+    "electron": "^1.8.2-beta.2",
+    "electron-icon-maker": "0.0.4",
+    "electron-installer-dmg": "^0.2.1",
+    "electron-packager": "^9.1.0"
+  },
+  "dependencies": {
+    "@polymer/polymer": "^2.2.0",
+    "polymer-redux": "^1.0.1",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0"
+  }
+}

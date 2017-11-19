@@ -1,0 +1,18 @@
+{
+  "entrypoint": "index.html",
+  "shell": "src/main.html",
+  "fragments": [],
+  "sources": [
+    "src/**/*"
+  ],
+  "lint": {
+    "rules": ["polymer-2"]
+  },
+  "builds": [{
+      "name": "out",
+      "js": {"minify": true, "compile": false},
+      "css": {"minify": true},
+      "html": {"minify": true}
+    }
+  ]
+}

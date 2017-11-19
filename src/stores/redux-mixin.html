@@ -1,0 +1,28 @@
+<script src="../../node_modules/redux/dist/redux.js"></script>
+<script src="../../node_modules/redux-thunk/dist/redux-thunk.js"></script>
+<link rel="import" href="../../node_modules/polymer-redux/dist/polymer-redux.html">
+<script>
+// Setup a Redux store
+(function(window, undefined) {
+
+  const initial = {
+    user: null
+  }
+
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case 'UPDATE_MESSAGE':
+      console.log(action)
+        // ALWAYS return new state
+        return Object.assign({}, state, {
+          user: action.user
+        });
+      default:
+        return state;
+    }
+  };
+  const store = Redux.createStore(reducer, initial, Redux.applyMiddleware(window.ReduxThunk.default))
+  // Export the ReduxMixin
+  ReduxMixin = PolymerRedux(store)
+})(window)
+</script>
