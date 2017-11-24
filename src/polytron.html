@@ -1,0 +1,22 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="./stores/redux-mixin.html">
+
+<dom-module id="polytron-app">
+  <template>
+    <style>
+
+    </style>
+  </template>
+
+  <script>
+    class PolytronApp extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'polytron-app' }
+      static get observers() {}
+      static get properties() {}
+      static get actions() {}
+      connectedCallback() {}
+      ready() {}
+    }
+    customElements.define(PolytronApp.is, PolytronApp);
+  </script>
+</dom-module>

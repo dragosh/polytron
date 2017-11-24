@@ -1,0 +1,19 @@
+{
+    "directory": "bower_components",
+    "registry": "https://registry.bower.io",
+    "color": false,
+    "timeout": 60000,
+    "save": true,
+    "save-exact": true,
+    "strict-ssl": true,
+    "storage": {
+      "packages" : ".bower/packages"
+    },
+    "interactive": true,
+    "resolvers": [],
+    "scripts": {
+      "preinstall": "",
+      "postinstall": "",
+      "preuninstall": ""
+    }
+}

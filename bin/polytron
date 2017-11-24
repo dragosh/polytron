@@ -1,0 +1,3 @@
+#!/usr/bin/env node
+
+require('cliss')((param1 = 'Welcome', param2 = 'Polytron') => `${param1} ${param2} `);

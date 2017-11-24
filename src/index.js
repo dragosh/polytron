@@ -3,5 +3,5 @@
 // All of the Node.js APIs are available in this process.
 
 module.exports = () => {
-  console.table(process.versions);
+  console.log(process);
 }
